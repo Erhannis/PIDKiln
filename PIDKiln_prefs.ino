@@ -224,7 +224,7 @@ char tmp[30];
 
       case PRF_MIN_TEMP:
         Prefs[PRF_MIN_TEMP].type=UINT8;
-        Prefs[PRF_MIN_TEMP].value.uint8=10;
+        Prefs[PRF_MIN_TEMP].value.uint8=10; //CHECK It's winter, and my kiln is probably currently below zero, haha.  So this could be problematic.
         break;
       case PRF_MAX_TEMP:
         Prefs[PRF_MAX_TEMP].type=UINT16;
