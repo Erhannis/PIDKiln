@@ -35,6 +35,9 @@ void Enable_SSR(){
 #ifdef SSR2_RELAY_PIN
     digitalWrite(SSR2_RELAY_PIN, HIGH);
 #endif
+#ifdef SSR3_RELAY_PIN
+    digitalWrite(SSR3_RELAY_PIN, HIGH);
+#endif
     SSR_On=true;
   }
 }
@@ -44,6 +47,9 @@ void Disable_SSR(){
     digitalWrite(SSR1_RELAY_PIN, LOW);
 #ifdef SSR2_RELAY_PIN
     digitalWrite(SSR2_RELAY_PIN, LOW);
+#endif
+#ifdef SSR3_RELAY_PIN
+    digitalWrite(SSR3_RELAY_PIN, LOW);
 #endif
     SSR_On=false;
   }
@@ -229,6 +235,9 @@ void Setup_Addons(){
   pinMode(SSR1_RELAY_PIN, OUTPUT);
 #ifdef SSR2_RELAY_PIN
     pinMode(SSR2_RELAY_PIN, OUTPUT);
+#endif
+#ifdef SSR3_RELAY_PIN
+    pinMode(SSR3_RELAY_PIN, OUTPUT);
 #endif
 
   pinMode(ALARM_PIN, OUTPUT);
