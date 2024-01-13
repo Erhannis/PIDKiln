@@ -3,11 +3,12 @@
 **
 */
 //DUMMY
-#include <MAX31855.h>
+//#include <MAX31855.h>
+#include "max6675.h"
 
 // Initialize SPI and MAX31855
-SPIClass *ESP32_SPI = new SPIClass(HSPI);
-MAX31855 ThermocoupleA(MAXCS1);
+//SPIClass *ESP32_SPI = new SPIClass(HSPI); //PCB
+MAX6675 ThermocoupleA(14, 27, 12);
 
 // If we have defines power meter pins
 #ifdef ENERGY_MON_PIN
@@ -72,13 +73,13 @@ Serial.println();
 // ThermocoupleA temperature readout
 //
 void Update_TemperatureA(){
-uint32_t raw;
 double kiln_tmp1;
 
-  raw = ThermocoupleA.readRawData();
+  kiln_temp = ThermocoupleA.readCelsius();
 //Serial.print("A");
 //print_bits(raw);
 
+  /*
   if(!raw){ // probably MAX31855 not connected
     DBG dbgLog(LOG_ERR,"[ADDONS] MAX31855 for ThermocoupleA did not respond\n");
     ABORT_Program(PR_ERR_MAX31A_NC);
@@ -119,7 +120,8 @@ double kiln_tmp1;
   kiln_temp=(kiln_temp*0.9+kiln_tmp1*0.1);    // We try to make bigger hysteresis
 
   if(TempA_errors>0) TempA_errors--;  // Lower errors count after proper readout
-  
+  */
+    
   DBG dbgLog(LOG_DEBUG, "[ADDONS] Temperature sensor A readout: Internal temp = %.1f \t Last temp = %.1f \t Average kiln temp = %.1f\n", int_temp, kiln_tmp1, kiln_temp); 
 }
 
@@ -248,7 +250,7 @@ void Setup_Addons(){
   pinMode(ALARM_PIN, OUTPUT);
 
   SSR_On=false;
-  ThermocoupleA.begin(ESP32_SPI);
+  //ThermocoupleA.begin(ESP32_SPI);
 #ifdef MAXCS2
   ThermocoupleB.begin(ESP32_SPI);
 #endif
