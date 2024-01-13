@@ -1,0 +1,10 @@
+Changes made in the switch to the Erhannis PCB
+----
+Tagged a bunch of changes with //PCB
+
+Switched from WROVER to WROOM
+Alarm is now pin 33, one of the breakouts
+Energy monitor pin defaults to 34, one of the breakouts
+Disabled LCD and INPUT because those pins are attached to other things
+  (You might be able to use some of the breakout pins for these.  Not sure there are enough.)
+  

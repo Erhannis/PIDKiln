@@ -1,3 +1,7 @@
+//#define INCLUDE_LCD //PCB
+
+#ifdef INCLUDE_LCD
+
 /*
 ** LCD Display components
 **
@@ -1007,3 +1011,21 @@ void Setup_LCD(void) {
   delay(500);
   
 }
+
+
+
+#else //INCLUDE_LCD
+
+void Restart_ESP(){
+}
+
+void LCD_display_mainv1(){
+}
+
+void LCD_display_mainv2(){
+}
+
+void load_msg(char msg[MAX_CHARS_PL]){
+}
+
+#endif //INCLUDE_LCD

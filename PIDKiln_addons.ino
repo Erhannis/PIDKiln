@@ -2,6 +2,7 @@
 ** Function for relays (SSR, EMR) and temperature sensors
 **
 */
+//DUMMY
 #include <MAX31855.h>
 
 // Initialize SPI and MAX31855
@@ -21,6 +22,7 @@ double Energy_Usage=0;            // total energy used (Watt/time)
 
 // If you have second thermoucouple
 #ifdef MAXCS2
+//DUMMY
 MAX31855 ThermocoupleB(MAXCS2);
 #endif
 

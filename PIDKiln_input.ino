@@ -1,3 +1,7 @@
+//#define INCLUDE_INPUT //PCB
+
+#ifdef INCLUDE_INPUT
+
 /*
 ** Pidkiln input (rotary encoder, buttons) subsystem
 **
@@ -190,3 +194,5 @@ void Setup_Input() {
               1,                /* Priority of the task. */
               NULL,0);            /* Task handle. */
 }
+
+#endif //INCLUDE_INPUT

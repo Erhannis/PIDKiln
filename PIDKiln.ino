@@ -34,6 +34,8 @@
 
 #include "PIDKiln.h"
 
+//PCB Because of how ino files apparently work, check the top of other files for whether or not they get included
+
 /* 
 ** Static, editable parameters. Some of them, can be replaces with PIDKiln preferences.
 ** Please set them up before uploading.
@@ -130,10 +132,10 @@ void setup() {
   Load_prefs();
   
   // Setup function for LCD display from PIDKiln_LCD.ino
-  Setup_LCD();
+  //Setup_LCD(); //PCB
 
   // Setup input devices
-  Setup_Input();
+  //Setup_Input(); //PCB
   
   DBG dbgLog(LOG_DEBUG,"WiFi mode: %d, Retry count: %d, is wifi enabled: %d\n",Prefs[PRF_WIFI_MODE].value.uint8,Prefs[PRF_WIFI_RETRY_CNT].value.uint8,Prefs[PRF_WIFI_SSID].type);
   

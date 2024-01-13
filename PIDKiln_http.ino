@@ -672,7 +672,10 @@ void do_screenshot(AsyncWebServerRequest *request){
   response->addHeader("Server","ESP Async Web Server");
   response->addHeader("Content-Disposition","attachment; filename=\"PIDKiln_screenshot.pbm\"");
 
+#ifdef INCLUDE_LCD
+  //PCB This probably breaks the screenshot function
   u8g2_WriteBufferPBM2(u8g2.getU8g2(),out);
+#endif
   response->println(screenshot);
   free(screenshot); screenshot=NULL;
   

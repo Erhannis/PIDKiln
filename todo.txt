@@ -1,0 +1,12 @@
+remove unused things
+  lcd
+  rotary
+  power meter
+
+swap thermo chips
+  specify correct pins
+
+update SSRs
+  3 heaters
+  1 main
+
