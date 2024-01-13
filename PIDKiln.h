@@ -14,20 +14,24 @@ const uint16_t Long_Press=400; // long press button takes about 0,9 second
 */
 
 const int MAX_Prog_File_Size=10240;  // maximum file size (bytes) that can be uploaded as program, this limit is also defined in JS script (js/program.js)
+
 /*
 ** Relays and thermocouple defs. and other addons
 **
 */
 
-//DUMMY
-#define EMR_RELAY_PIN 21
-#define SSR1_RELAY_PIN 19
-//#define SSR2_RELAY_PIN 22   // if you want to use additional SSR for second heater, uncoment this
+#define EMR_RELAY_PIN 32
+#define SSR1_RELAY_PIN 25
+#define SSR2_RELAY_PIN 26
+#define SSR3_RELAY_PIN 27
 
-//DUMMY
-// MAX31855 variables/defs
-#define MAXCS1  27    // for hardware SPI - HSPI (MOSI-13, MISO-12, CLK-14) - 1st device CS-27
-#define MAXCS2  15    // same SPI - 2nd device CS-15 (comment out if no second thermocouple)
+// MAX31856 variables/defs
+#define MAXSPI1 VSPI
+#define MAXSPI2 HSPI
+#define MAXCS1  5    // for hardware SPI - VSPI (MOSI-23, MISO-19, CLK-18) - 1st device CS-5
+#define MAXCS2  15    // HSPI (MOSI-13, MISO-12, CLK-14) - 2nd device CS-15 (comment out if no second thermocouple)
+#define MAXTYPE1 MAX31856_TCTYPE_K
+#define MAXTYPE2 MAX31856_TCTYPE_K
 
 // If you have power meter - uncoment this
 //#define ENERGY_MON_PIN 34       // if you don't use - comment out

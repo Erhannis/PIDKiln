@@ -2,9 +2,13 @@ Changes made in the switch to the Erhannis PCB
 ----
 Tagged a bunch of changes with //PCB
 
+Install https://github.com/adafruit/Adafruit_MAX31856
+
 Switched from WROVER to WROOM
 Alarm is now pin 33, one of the breakouts
 Energy monitor pin defaults to 34, one of the breakouts
 Disabled LCD and INPUT because those pins are attached to other things
   (You might be able to use some of the breakout pins for these.  Not sure there are enough.)
-  
+SSRs 1-3 are now pins 25-27
+EMR is now 32
+Thermocouple is now MAX31856
