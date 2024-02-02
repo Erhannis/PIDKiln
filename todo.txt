@@ -7,6 +7,7 @@ additional power limits by temperature
     configurable max?  minimum cap?
 chart power
 NANs propagate and persist
+  does the PID get infected?
 stop program if too many NANs?
 
 I think the pid window shouldn't be changed during run?  (5000 -> 250 maxed my element out rather than proportionally speeding up)
