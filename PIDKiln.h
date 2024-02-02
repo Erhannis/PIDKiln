@@ -310,8 +310,9 @@ File CSVFile,LOGFile;
 ** Other stuff
 **
 */
-const char *PVer = "PIDKiln v1.4";
-const char *PDate = "2022.05.31";
+const char *PVer = "PIDKiln-EK v1.5";
+const char *PDate = "2023.02.02";
+//RAINY Git hash
 
 // If defined debug - do debug, otherwise comment out all debug lines
 #define DBG if(DEBUG)

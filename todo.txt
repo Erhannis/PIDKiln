@@ -1,12 +1,13 @@
-remove unused things
-  lcd
-  rotary
-  power meter
+fix PID tuning
+permit change PID during program?
+dithering?
+max power?
+additional power limits by temperature
+  power *= (1350-temp)/1350
+    configurable max?  minimum cap?
+chart power
+NANs propagate and persist
+stop program if too many NANs?
 
-swap thermo chips
-  specify correct pins
-
-update SSRs
-  3 heaters
-  1 main
-
+I think the pid window shouldn't be changed during run?  (5000 -> 250 maxed my element out rather than proportionally speeding up)
+I also got some weird D behavior in a sim derived from the pid lib, like, it wasn't damping right. 
