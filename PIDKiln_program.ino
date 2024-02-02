@@ -429,7 +429,7 @@ static boolean is_it_dwell=false;
         Program_recalculate_ETA(true);  // recalculate ETA for dwell
       }
     }
-    DBG dbgLog(LOG_INFO,"[PRG] Curr temp: %.0f, Set_temp: %.0f, Incr: %.2f Pid_out:%.2f Step: %d\n", kiln_temp, set_temp, temp_incr, pid_out*PID_WINDOW_DIVIDER, Program_run_step);
+    DBG dbgLog(LOG_INFO,"[PRG] Curr temp: %.0f, Set_temp: %.0f, Incr: %.2f Pid_out:%.2f Limited pid:%.2f Step: %d\n", kiln_temp, set_temp, temp_incr, pid_out*PID_WINDOW_DIVIDER, limited_pid()*PID_WINDOW_DIVIDER, Program_run_step);
   }
 
   if(Program_run_state!=PR_PAUSED && Program_run_state!=PR_THRESHOLD) set_temp+=temp_incr;  // increase desire temperature...
@@ -535,7 +535,7 @@ uint32_t now;
         }else if(cnt1==9){
           cnt1=0;
           if(LCD_Main==MAIN_VIEW2 && (Program_run_state==PR_RUNNING || Program_run_state==PR_PAUSED)) LCD_display_mainv2();
-          DBG dbgLog(LOG_INFO,"[PRG] Pid_out RAW:%.2f Pid_out:%.2f Now-window:%d WindowSize:%d Prg_state:%d\n",pid_out,pid_out*PID_WINDOW_DIVIDER,(now - windowStartTime), Prefs[PRF_PID_WINDOW].value.uint16, (byte)Program_run_state);
+          DBG dbgLog(LOG_INFO,"[PRG] Pid_out RAW:%.2f Pid_out:%.2f Limited pid:%.2f Now-window:%d WindowSize:%d Prg_state:%d\n",pid_out,pid_out*PID_WINDOW_DIVIDER,limited_pid()*PID_WINDOW_DIVIDER,(now - windowStartTime), Prefs[PRF_PID_WINDOW].value.uint16, (byte)Program_run_state);
         }
        }
     }
@@ -549,11 +549,12 @@ uint32_t now;
       if (now - windowStartTime > Prefs[PRF_PID_WINDOW].value.uint16){ //time to shift the Relay Window
         windowStartTime += Prefs[PRF_PID_WINDOW].value.uint16;
       }
-      if (pid_out*PID_WINDOW_DIVIDER > now - windowStartTime) Enable_SSR();
+      if (limited_pid()*PID_WINDOW_DIVIDER > now - windowStartTime) Enable_SSR();
       else Disable_SSR();
     }
     //yield();
-    vTaskDelay(10); // This should enable to run other tasks on this core
+    // Note: on this ESP32, with my build env, 1 tick = 1 ms.
+    vTaskDelay(7); // This should enable to run other tasks on this core
   }
 }
 

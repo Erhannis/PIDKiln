@@ -12,3 +12,15 @@ stop program if too many NANs?
 
 I think the pid window shouldn't be changed during run?  (5000 -> 250 maxed my element out rather than proportionally speeding up)
 I also got some weird D behavior in a sim derived from the pid lib, like, it wasn't damping right. 
+
+^propagate new variables
+^replace pid_out
+
+wait, does pid window actually even affect pid?  is divider the thing I want??
+  well, it's not passed to the PID!
+separate pid and element windows
+rescale pid to 0-1
+PID_WINDOW_DIVIDER
+  is NOT used in timing the windows
+
+program finish -> start program, acted like it was running the program (up to 100% heat time), but elements weren't on.  Thought I'd burned out my elements.

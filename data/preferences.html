@@ -217,6 +217,57 @@
      </div>
      <div class="row">
       <div class="col-25">
+	<label for="PID_LIMIT_OUTPUT"> Enable PID limit ramp </label>
+      </div>
+      <div class="col-75">
+	<select name="PID_LIMIT_OUTPUT" size="1" title="If enabled, output of PID is multiplied by a factor so that at high temperatures the power ramps down to avoid melting your elements.">
+	  <option value="0" ~PID_LIMIT_OUTPUT0~> no </option>
+	  <option value="1" ~PID_LIMIT_OUTPUT1~> yes </option>
+	</select>
+      </div>
+     </div>
+     <div class="row">
+      <div class="col-25">
+	<label for="PID_LIMIT_RAMP_MIN_TEMP"> PID limit ramp min temp </label>
+      </div>
+      <div class="col-75">
+	<input type="number" name="PID_LIMIT_RAMP_MIN_TEMP" min="-9999" max="9999" step="0.1" value="~PID_LIMIT_RAMP_MIN_TEMP~" size="8" title="Temperature at which the power starts ramping down">
+      </div>
+     </div>
+     <div class="row">
+      <div class="col-25">
+	<label for="PID_LIMIT_RAMP_MAX_TEMP"> PID limit ramp min temp </label>
+      </div>
+      <div class="col-75">
+	<input type="number" name="PID_LIMIT_RAMP_MAX_TEMP" min="-9999" max="9999" step="0.1" value="~PID_LIMIT_RAMP_MAX_TEMP~" size="8" title="Temperature at which the power finishes ramping down">
+      </div>
+     </div>
+     <div class="row">
+      <div class="col-25">
+	<label for="PID_LIMIT_MIN_MULT"> PID limit ramp min multiplier </label>
+      </div>
+      <div class="col-75">
+	<input type="number" name="PID_LIMIT_MIN_MULT" min="0" max="1" step="0.1" value="~PID_LIMIT_MIN_MULT~" size="8" title="At the max temp AND ABOVE, power is multipled by this factor.">
+      </div>
+     </div>
+     <div class="row">
+      <div class="col-25">
+	<label for="PID_LIMIT_MAX_MULT"> PID limit ramp max multiplier </label>
+      </div>
+      <div class="col-75">
+	<input type="number" name="PID_LIMIT_MAX_MULT" min="0" max="1" step="0.1" value="~PID_LIMIT_MAX_MULT~" size="8" title="At the min temp AND BELOW, power is multipled by this factor.">
+      </div>
+     </div>
+     <div class="row">
+      <div class="col-25">
+	<label for="PID_DUTY_CYCLE_PERIOD"> Element duty cycle period (ms) </label>
+      </div>
+      <div class="col-75">
+	<input type="number" name="PID_DUTY_CYCLE_PERIOD" min="1" max="9999" value="~PID_DUTY_CYCLE_PERIOD~" size="8" title="Element on time + off time, in ms">ms
+      </div>
+     </div>
+     <div class="row">
+      <div class="col-25">
 	<label for="LOG_Window"> Program logging window </label>
       </div>
       <div class="col-75">

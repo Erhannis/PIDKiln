@@ -64,6 +64,13 @@ String Preferences_parser(const String& var){
  else if(var=="PID_POE0" && Prefs[PRF_PID_POE].value.uint8==0) return "checked";
  else if(var=="PID_POE1" && Prefs[PRF_PID_POE].value.uint8==1) return "checked";
  else if(var=="PID_Temp_Threshold") return String(Prefs[PRF_PID_TEMP_THRESHOLD].value.int16);
+ else if(var=="PID_LIMIT_OUTPUT0" && Prefs[PRF_PID_LIMIT_OUTPUT].value.uint8==0) return "selected";
+ else if(var=="PID_LIMIT_OUTPUT1" && Prefs[PRF_PID_LIMIT_OUTPUT].value.uint8==1) return "selected";
+ else if(var=="PID_LIMIT_RAMP_MIN_TEMP") return String(Prefs[PRF_PID_LIMIT_RAMP_MIN_TEMP].value.vfloat);
+ else if(var=="PID_LIMIT_RAMP_MAX_TEMP") return String(Prefs[PRF_PID_LIMIT_RAMP_MAX_TEMP].value.vfloat);
+ else if(var=="PID_LIMIT_MIN_MULT") return String(Prefs[PRF_PID_LIMIT_MIN_MULT].value.vfloat);
+ else if(var=="PID_LIMIT_MAX_MULT") return String(Prefs[PRF_PID_LIMIT_MAX_MULT].value.vfloat);
+ else if(var=="PID_DUTY_CYCLE_PERIOD") return String(Prefs[PRF_PID_DUTY_CYCLE_PERIOD].value.uint16);
  
  else if(var=="LOG_Window") return String(Prefs[PRF_LOG_WINDOW].value.uint16);
  else if(var=="LOG_Files_Limit") return String(Prefs[PRF_LOG_LIMIT].value.uint16);
@@ -623,7 +630,7 @@ struct tm timeinfo, *tmm;
   else if(var=="SET_TEMP") return String(set_temp);
   else if(var=="ENV_TEMP") return String(int_temp);
   else if(var=="CASE_TEMP") return String(case_temp);
-  else if(var=="HEAT_TIME") return String((pid_out/Prefs[PRF_PID_WINDOW].value.uint16)*100*PID_WINDOW_DIVIDER);
+  else if(var=="HEAT_TIME") return String((limited_pid()/Prefs[PRF_PID_WINDOW].value.uint16)*100*PID_WINDOW_DIVIDER);
   else if(var=="TEMP_CHANGE") return String(temp_incr);
   else if(var=="STEP"){
     if(Program_run_state==PR_RUNNING){

@@ -52,6 +52,24 @@ uint32_t windowStartTime;
 //Specify the links and initial tuning parameters
 PID KilnPID(&kiln_temp, &pid_out, &set_temp, 0, 0, 0, P_ON_E, DIRECT);
 
+//THINK Should this be in .ino instead?
+/**
+ * @brief Limit power at high temps to avoid damage, see https://crafts.stackexchange.com/a/11353
+ * 
+ * @param pid_out 
+ * @param kiln_temp 
+ * @param min_temp 
+ * @param max_temp 
+ * @param min_mult 
+ * @param max_mult 
+ * @return double 
+ */
+double limit_pid(double pid_out, double kiln_temp, double min_temp, double max_temp, double min_mult, double max_mult) {
+    double mult = (max_temp - kiln_temp) / (max_temp - min_temp);
+    mult = min(max_mult, max(min_mult, mult));
+    return pid_out * mult;
+}
+
 /*
 ** Global value of LCD screen/menu and menu position
 **
@@ -248,6 +266,12 @@ typedef enum { // program menu positions
   PRF_PID_KD,
   PRF_PID_POE,
   PRF_PID_TEMP_THRESHOLD,
+  PRF_PID_LIMIT_OUTPUT,
+  PRF_PID_LIMIT_RAMP_MIN_TEMP,
+  PRF_PID_LIMIT_RAMP_MAX_TEMP,
+  PRF_PID_LIMIT_MIN_MULT,
+  PRF_PID_LIMIT_MAX_MULT,
+  PRF_PID_DUTY_CYCLE_PERIOD,
 
   PRF_LOG_WINDOW,
   PRF_LOG_LIMIT,
@@ -272,7 +296,7 @@ const char *PrefsName[]={
 "HTTP_Local_JS",
 "Auth_Username","Auth_Password",
 "NTP_Server1","NTP_Server2","NTP_Server3","GMT_Offset_sec","Daylight_Offset_sec","Initial_Date","Initial_Time",
-"PID_Window","PID_Kp","PID_Ki","PID_Kd","PID_POE","PID_Temp_Threshold",
+"PID_Window","PID_Kp","PID_Ki","PID_Kd","PID_POE","PID_Temp_Threshold", "PID_LIMIT_OUTPUT", "PID_LIMIT_RAMP_MIN_TEMP", "PID_LIMIT_RAMP_MAX_TEMP", "PID_LIMIT_MIN_MULT", "PID_LIMIT_MAX_MULT", "PID_DUTY_CYCLE_PERIOD",
 "LOG_Window","LOG_Files_Limit",
 "MIN_Temperature","MAX_Temperature","MAX_Housing_Temperature","Thermal_Runaway","Alarm_Timeout","MAX31855_Error_Grace_Count",
 "DBG_Serial","DBG_Syslog","DBG_Syslog_Srv","DBG_Syslog_Port",
@@ -339,3 +363,25 @@ void LCD_Display_quick_program(int dir=0,byte pos=0);
 uint8_t Cleanup_program(uint8_t err=0);
 uint8_t Load_program(char *file=0);
 void ABORT_Program(uint8_t error=0);
+
+//THINK Should this be in .ino instead?
+/**
+ * @brief limit_pid with values from current vars and params
+ * Based on https://crafts.stackexchange.com/a/11353
+ * 
+ * @return double 
+ */
+double limited_pid() {
+    // double pid_out = ;
+    // double kiln_temp = ;
+    bool should_limit_pid = Prefs[PRF_PID_LIMIT_OUTPUT].value.uint8;
+    double min_temp = Prefs[PRF_PID_LIMIT_RAMP_MIN_TEMP].value.vfloat;
+    double max_temp = Prefs[PRF_PID_LIMIT_RAMP_MAX_TEMP].value.vfloat;
+    double min_mult = Prefs[PRF_PID_LIMIT_MIN_MULT].value.vfloat;
+    double max_mult = Prefs[PRF_PID_LIMIT_MAX_MULT].value.vfloat;
+    if (should_limit_pid) {
+        return limit_pid(pid_out, kiln_temp, min_temp, max_temp, min_mult, max_mult);
+    } else {
+        return pid_out;
+    }
+}

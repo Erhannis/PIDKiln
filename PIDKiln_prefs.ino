@@ -188,9 +188,9 @@ char tmp[30];
         Prefs[PRF_INIT_TIME].value.str=strdup("00:00:00");
         break;
 
-      case PRF_PID_WINDOW:  // how often recalculate SSR on/off - 1000/(60 / (8*sqrt(2))) ~= 189 millisecond window default, for brief cycles while avoiding harmonics with the mains frequency
+      case PRF_PID_WINDOW:  // how often recalculate PID
         Prefs[PRF_PID_WINDOW].type=UINT16;
-        Prefs[PRF_PID_WINDOW].value.uint16=189;
+        Prefs[PRF_PID_WINDOW].value.uint16=5000;
         break;
       case PRF_PID_KP:
         Prefs[PRF_PID_KP].type=VFLOAT;
@@ -211,6 +211,30 @@ char tmp[30];
       case PRF_PID_TEMP_THRESHOLD:  // allowed difference in temperature between set and current when controller will go in dwell mode
         Prefs[PRF_PID_TEMP_THRESHOLD].type=INT16;
         Prefs[PRF_PID_TEMP_THRESHOLD].value.int16=-1;
+        break;
+      case PRF_PID_LIMIT_OUTPUT:
+        Prefs[PRF_PID_LIMIT_OUTPUT].type=UINT8;
+        Prefs[PRF_PID_LIMIT_OUTPUT].value.uint8=1;
+        break;
+      case PRF_PID_LIMIT_RAMP_MIN_TEMP:
+        Prefs[PRF_PID_LIMIT_RAMP_MIN_TEMP].type=VFLOAT;
+        Prefs[PRF_PID_LIMIT_RAMP_MIN_TEMP].value.vfloat=900; // Erring a little on the safe side
+        break;
+      case PRF_PID_LIMIT_RAMP_MAX_TEMP:
+        Prefs[PRF_PID_LIMIT_RAMP_MAX_TEMP].type=VFLOAT;
+        Prefs[PRF_PID_LIMIT_RAMP_MAX_TEMP].value.vfloat=1200;
+        break;
+      case PRF_PID_LIMIT_MIN_MULT:
+        Prefs[PRF_PID_LIMIT_MIN_MULT].type=VFLOAT;
+        Prefs[PRF_PID_LIMIT_MIN_MULT].value.vfloat=0.1;
+        break;
+      case PRF_PID_LIMIT_MAX_MULT:
+        Prefs[PRF_PID_LIMIT_MAX_MULT].type=VFLOAT;
+        Prefs[PRF_PID_LIMIT_MAX_MULT].value.vfloat=1.0;
+        break;
+      case PRF_PID_DUTY_CYCLE_PERIOD:  // how often recalculate SSR on/off - 1000/(60 / (8*sqrt(2))) ~= 189 millisecond window default, for brief cycles while avoiding harmonics with the mains frequency
+        Prefs[PRF_PID_DUTY_CYCLE_PERIOD].type=UINT16;
+        Prefs[PRF_PID_DUTY_CYCLE_PERIOD].value.uint16=189;
         break;
 
       case PRF_LOG_WINDOW:
