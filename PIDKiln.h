@@ -47,7 +47,6 @@ double int_temp=20, kiln_temp=20, case_temp=20;
 double set_temp, pid_out;
 float temp_incr=0;
 uint32_t windowStartTime;
-#define PID_WINDOW_DIVIDER 1
 
 //Specify the links and initial tuning parameters
 PID KilnPID(&kiln_temp, &pid_out, &set_temp, 0, 0, 0, P_ON_E, DIRECT);
