@@ -77,7 +77,7 @@ Serial.println();
 // ThermocoupleA temperature readout
 //
 void Update_TemperatureA(){
-double kiln_tmp1;
+double kiln_tmp1, kiln_tmp2;
 
   kiln_tmp1 = ThermocoupleA.readThermocoupleTemperature();
 
@@ -111,14 +111,22 @@ double kiln_tmp1;
     return;
   }
 
-  kiln_temp=(kiln_temp*0.9+kiln_tmp1*0.1);    // We try to make bigger hysteresis
+  if (isnan(kiln_temp)) {
+    kiln_temp=kiln_tmp1;
+  } else {
+    kiln_temp=(kiln_temp*0.9+kiln_tmp1*0.1);    // We try to make bigger hysteresis    
+  }
 
-  kiln_tmp1 = ThermocoupleA.readCJTemperature();
-  int_temp = (int_temp+kiln_tmp1)/2;
+  kiln_tmp2 = ThermocoupleA.readCJTemperature();
+  if (isnan(int_temp)) {
+    int_temp = kiln_tmp2;  
+  } else {
+    int_temp = (int_temp+kiln_tmp2)/2;
+  }
   
   if(TempA_errors>0) TempA_errors--;  // Lower errors count after proper readout
   
-  DBG dbgLog(LOG_DEBUG, "[ADDONS] Temperature sensor A readout: Internal temp = %.1f \t Last temp = %.1f \t Average kiln temp = %.1f\n", int_temp, kiln_tmp1, kiln_temp); 
+  DBG dbgLog(LOG_DEBUG, "[ADDONS] Temperature sensor A readout: Internal temp = %.1f \t Average kiln temp = %.1f \t tctemp = %.1f \t cjtemp = %.1f \t fault = %x\n", int_temp, kiln_temp, kiln_tmp1, kiln_tmp2, fault); 
 }
 
 
@@ -127,6 +135,7 @@ double kiln_tmp1;
 //
 void Update_TemperatureB(){
 double case_tmp1;
+double case_tmp2;
 
   case_tmp1 = ThermocoupleB.readThermocoupleTemperature();
 
@@ -160,14 +169,22 @@ double case_tmp1;
     return;
   }
 
-  case_temp=(case_temp*0.8+case_tmp1*0.2);    // We try to make bigger hysteresis
+  if (isnan(case_temp)) {
+    case_temp=case_tmp1;
+  } else {
+    case_temp=(case_temp*0.8+case_tmp1*0.2);    // We try to make bigger hysteresis
+  }
 
-  case_tmp1 = ThermocoupleB.readCJTemperature(); 
-  int_temp = (int_temp+case_tmp1)/2; //THINK Seems potentially objectionable to use two measures of internal temperature
+  case_tmp2 = ThermocoupleB.readCJTemperature(); 
+  if (isnan(int_temp)) {
+    int_temp = case_tmp2;
+  } else {
+    int_temp = (int_temp+case_tmp2)/2; //THINK Seems potentially objectionable to use two measures of internal temperature
+  }
     
   if(TempB_errors>0) TempB_errors--;  // Lower errors count after proper readout
 
-  DBG dbgLog(LOG_DEBUG,"[ADDONS] Temperature sensor B readout: Internal temp = %.1f \t Last temp = %.1f \t Average case temp = %.1f\n", int_temp, case_tmp1, case_temp); 
+  DBG dbgLog(LOG_DEBUG,"[ADDONS] Temperature sensor B readout: Internal temp = %.1f \t Average kiln temp = %.1f \t tctemp = %.1f \t cjtemp = %.1f \t fault = %x\n", int_temp, case_temp, case_tmp1, case_tmp2, fault); 
 }
 #endif
 

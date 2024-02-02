@@ -541,9 +541,11 @@ uint32_t now;
     }
 
     // Do the PID stuff
+    //CHECK I'm not entirely sure my kiln filaments will survive e.g. a solid 2 seconds of full power.  I was planning on some kind of PWM.
     if(Program_run_state==PR_RUNNING || Program_run_state==PR_PAUSED || Program_run_state==PR_THRESHOLD){
       KilnPID.Compute();
 
+      //THINK Probably ought not to read Prefs in the middle of the program
       if (now - windowStartTime > Prefs[PRF_PID_WINDOW].value.uint16){ //time to shift the Relay Window
         windowStartTime += Prefs[PRF_PID_WINDOW].value.uint16;
       }

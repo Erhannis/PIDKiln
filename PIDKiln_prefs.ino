@@ -188,9 +188,9 @@ char tmp[30];
         Prefs[PRF_INIT_TIME].value.str=strdup("00:00:00");
         break;
 
-      case PRF_PID_WINDOW:  // how often recalculate SSR on/off - 5 second window default
+      case PRF_PID_WINDOW:  // how often recalculate SSR on/off - 1000/(60 / (8*sqrt(2))) ~= 189 millisecond window default, for brief cycles while avoiding harmonics with the mains frequency
         Prefs[PRF_PID_WINDOW].type=UINT16;
-        Prefs[PRF_PID_WINDOW].value.uint16=5000;
+        Prefs[PRF_PID_WINDOW].value.uint16=189;
         break;
       case PRF_PID_KP:
         Prefs[PRF_PID_KP].type=VFLOAT;
