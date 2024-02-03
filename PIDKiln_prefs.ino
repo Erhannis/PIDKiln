@@ -57,7 +57,7 @@ File prf;
       }else if(Prefs[a].type==INT16){
         prf.printf("%s = %d\n",PrefsName[a],Prefs[a].value.int16);
       }else if(Prefs[a].type==VFLOAT){
-        prf.printf("%s = %.2f\n",PrefsName[a],Prefs[a].value.vfloat);
+        prf.printf("%s = %f\n",PrefsName[a],Prefs[a].value.vfloat);
       }
     }
     prf.flush();
@@ -194,15 +194,15 @@ char tmp[30];
         break;
       case PRF_PID_KP:
         Prefs[PRF_PID_KP].type=VFLOAT;
-        Prefs[PRF_PID_KP].value.vfloat=10;
+        Prefs[PRF_PID_KP].value.vfloat=0.378;
         break;
       case PRF_PID_KI:
         Prefs[PRF_PID_KI].type=VFLOAT;
-        Prefs[PRF_PID_KI].value.vfloat=0.2;
+        Prefs[PRF_PID_KI].value.vfloat=0.00756;
         break;
       case PRF_PID_KD:
         Prefs[PRF_PID_KD].type=VFLOAT;
-        Prefs[PRF_PID_KD].value.vfloat=0.1;
+        Prefs[PRF_PID_KD].value.vfloat=0.00378;
         break;
       case PRF_PID_POE:   // it's actually boolean - but I did not want to create additional type - if we use  Proportional on Error (true) or Proportional on Measurement (false)
         Prefs[PRF_PID_POE].type=UINT8;

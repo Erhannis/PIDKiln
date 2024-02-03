@@ -451,13 +451,15 @@ void START_Program(){
   
   Enable_EMR();
 
+  KilnPID.Set
   KilnPID.SetTunings(Prefs[PRF_PID_KP].value.vfloat,Prefs[PRF_PID_KI].value.vfloat,Prefs[PRF_PID_KD].value.vfloat,Prefs[PRF_PID_POE].value.uint8); // set actual PID parameters
   Program_run_start=time(NULL);
   Program_calculate_steps(true);
   windowStartTime=millis();
 
-  //tell the PID to range between 0 and the full window size
-  KilnPID.SetOutputLimits(0, Prefs[PRF_PID_WINDOW].value.uint16);
+  //tell the PID to range between 0 and 1
+  KilnPID.SetOutputLimits(0, 1);
+  KilnPID.SetSampleTime(Prefs[PRF_PID_WINDOW].value.uint16);
   KilnPID.SetMode(AUTOMATIC);
 
   DBG dbgLog(LOG_INFO,"[PRG] Trying to start log - window size:%d\n",Prefs[PRF_LOG_WINDOW].value.uint16);
@@ -546,10 +548,10 @@ uint32_t now;
       KilnPID.Compute();
 
       //THINK Probably ought not to read Prefs in the middle of the program
-      if (now - windowStartTime > Prefs[PRF_PID_WINDOW].value.uint16){ //time to shift the Relay Window
-        windowStartTime += Prefs[PRF_PID_WINDOW].value.uint16;
+      if (now - windowStartTime > Prefs[PRF_PID_DUTY_CYCLE_PERIOD].value.uint16){ //time to shift the Relay Window
+        windowStartTime += Prefs[PRF_PID_DUTY_CYCLE_PERIOD].value.uint16;
       }
-      if (limited_pid() > now - windowStartTime) Enable_SSR();
+      if (limited_pid()*Prefs[PRF_PID_DUTY_CYCLE_PERIOD].value.uint16 > now - windowStartTime) Enable_SSR();  //CHECK Come to think of it - changes in pid_out could cause the ssrs to turn on/off/on in the middle of a cycle, which is kinda weird.  At least the new state should still direct the system towards the intended target.
       else Disable_SSR();
     }
     //yield();

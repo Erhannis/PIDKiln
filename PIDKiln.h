@@ -48,6 +48,22 @@ double set_temp, pid_out;
 float temp_incr=0;
 uint32_t windowStartTime;
 
+/*
+For whatever it's worth, I looked at the PID code and I think it simplifies down to these equations, every SampleTime interval
+
+// Proportional on error
+S1 = Clamp(S0 + Ki*E)
+O1 = Clamp(Kp*E + Clamp(S0 + Ki*E) - Kd*dI)
+
+// Proportional on measurement
+S1 = Clamp(S0 + Ki*E - Kp*dI)
+O1 = Clamp(Clamp(S0 + Ki*E - Kp*dI) - Kd*dI)
+
+Further, not that it matters now, but I believe that multiplying all three K values by some X scales the output by X,
+such that if you unscaled the output (and scaled SetOutputLimit) the behavior of the system would be unchanged.
+I used this to scale the output to 0-1.
+
+*/
 //Specify the links and initial tuning parameters
 PID KilnPID(&kiln_temp, &pid_out, &set_temp, 0, 0, 0, P_ON_E, DIRECT);
 
