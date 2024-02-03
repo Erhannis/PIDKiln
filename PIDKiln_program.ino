@@ -2,7 +2,7 @@
 ** Pidkiln program routines - main program functions and all PID magic
 **
 */
-#include <PID_v1.h>
+// #include <PID_v1.h>
 #include <SPI.h>
 
 // Other variables
@@ -313,7 +313,7 @@ void ABORT_Program(uint8_t error){
 
   if(Program_run_state==PR_RUNNING || Program_run_state==PR_PAUSED){
     Program_error=error;
-    DBG dbgLog(LOG_INFO,"[PRG] Aborting program with error: %d\n",Program_error);
+    DBG dbgLog(LOG_INFO,"[PRG] Aborting program with error: %d %s\n",Program_error,errorEnumToStr(Program_error).c_str());
     END_Program();
     Program_run_state=PR_ABORTED;
     //Program_run_start=0;

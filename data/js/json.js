@@ -61,7 +61,7 @@ function executeQuery() {
 $(document).ready(function() {
   // run the first time; all subsequent calls will take care of themselves
   executeQuery();
-  setTimeout(executeQuery, 5000);
+  setTimeout(executeQuery, 5000); //THINK So then why is it called, and then setTimeout too?
 });
 
 change_program_status(1);   // assume program is ready on start

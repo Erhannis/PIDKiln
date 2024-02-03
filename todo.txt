@@ -1,14 +1,16 @@
 fix PID tuning
 dithering?
 max power?
-chart power
 ^NANs propagate and persist
   does the PID get infected?
 stop program if too many NANs?
+  should probably be counted a tc fail
 
 I got some weird D behavior in a sim derived from the pid lib, like, it wasn't damping right. 
 
 Update pidkiln.conf in git with scaled Kx
+Make decimals consistent
+hard caps
 
 ^separate pid and element windows
 ^rescale pid to 0-1
@@ -18,6 +20,6 @@ Update pidkiln.conf in git with scaled Kx
 ^additional power limits by temperature
   power *= (1350-temp)/1350
     configurable max?  minimum cap?
+^chart power
 
 program finish -> start program, acted like it was running the program (up to 100% heat time), but elements weren't on.  Thought I'd burned out my elements.
-

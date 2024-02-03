@@ -20,9 +20,9 @@ struct tm timeinfo, *tmm;
   if(CSVFile=SPIFFS.open(str, "w")){
     DBG dbgLog(LOG_INFO,"[LOG] Created new log file %s\n",str);
 #ifdef ENERGY_MON_PIN
-    CSVFile.print(String("Date,Temperature,Housing,Energy"));
+    CSVFile.print(String("Date,Set,Kiln,Environment,Housing,rpid,pid,psum,Energy"));
 #else
-    CSVFile.print(String("Date,Temperature,Housing"));
+    CSVFile.print(String("Date,Set,Kiln,Environment,Housing,rpid,pid,psum"));
 #endif
   }
 
@@ -70,11 +70,13 @@ struct tm timeinfo,*tmm;
   if(getLocalTime(&timeinfo)) strftime(str, 29, "%F %T", &timeinfo);
   else sprintf(str,"%d",millis());
 
+  // "Date,Set,Kiln,Environment,Housing,rpid,pid,psum,Energy"
+
 #ifdef ENERGY_MON_PIN
-    tmp=String(str)+","+String(kiln_temp,0)+","+String(case_temp,0)+","+String((int)(Energy_Usage-EnW_last));
+    tmp=String(str)+","+String(set_temp,0)+","+String(kiln_temp,0)+","+String(int_temp,1)+","+String(case_temp,0)+","+String(pid_out,4)+","+String(limited_pid(),4)+","+String(KilnPID.GetOutputSum(),4)+","+String((int)(Energy_Usage-EnW_last));
     EnW_last=Energy_Usage;
 #else
-    tmp=String(str)+","+String(kiln_temp,0)+","+String(case_temp,0);
+    tmp=String(str)+","+String(set_temp,0)+","+String(kiln_temp,0)+","+String(int_temp,1)+","+String(case_temp,0)+","+String(pid_out,4)+","+String(limited_pid(),4)+","+String(KilnPID.GetOutputSum(),4);
 #endif
 
   DBG dbgLog(LOG_INFO,"[LOG] Writing to log file:%s\n",tmp.c_str());
@@ -100,9 +102,9 @@ char str[33];
       LOGFile.printf("Program ended at: %s\n", str);
     }
     LOGFile.printf("End temperature: %.1fC\n",kiln_temp);
-    if(Energy_Wattage) LOGFile.printf("Used power: %.1f W/h\n",Energy_Wattage);
+    if(Energy_Wattage) LOGFile.printf("Used power: %.1f W/h\n",Energy_Wattage); //THINK You could probably estimate the kwh
     if(Program_error){
-      LOGFile.printf("Program aborted with error: %d\n",Program_error);
+      LOGFile.printf("Program aborted with error: %d %s\n",Program_error,errorEnumToStr(Program_error).c_str());
     }
     LOGFile.flush();
     LOGFile.close();

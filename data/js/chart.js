@@ -2,33 +2,75 @@ var ctx = document.getElementById('ProgramChart').getContext('2d');
 var chart_update_id;
 
 var chartColors = {
-	red: 'rgb(255, 99, 132)',
+	red: 'rgb(255, 0, 0)',
+	pink: 'rgb(255, 99, 132)',
 	blue: 'rgb(54, 162, 235)',
 	yel: 'rgb(150, 100, 0)',
-	green: 'rgba(0, 170, 70, 0.1)'
+	green: 'rgba(0, 200, 0, 1.0)',
+	t_green: 'rgba(0, 170, 70, 0.1)',
+	t_purple: 'rgba(200, 0, 200, 0.5)',
+	t_blue: 'rgba(54, 162, 235, 0.5)',
+	cyan: 'rgba(0, 200, 200, 1.0)',
+	orange: 'rgba(255, 180, 0, 1.0)',
 };
 
 var color = Chart.helpers.color;
 var config_with = {
 	type: 'line',
-	data: {
-		datasets: [{
+	data: { // "Date,Set,Kiln,Environment,Housing,rpid,pid,psum,Energy"
+		datasets: [{ // Set
+			yAxisID: 'temperature',
+			backgroundColor: 'transparent',
+			borderColor: chartColors.t_purple,
+			pointBackgroundColor: chartColors.t_purple,
+			tension: 0.1,
+			fill: false,
+            hidden: true,
+		     }, { // Kiln
 			yAxisID: 'temperature',
 			backgroundColor: 'transparent',
 			borderColor: chartColors.red,
 			pointBackgroundColor: chartColors.red,
 			tension: 0.1,
 			fill: false
-		     }, {
+		     }, { // Environment
+			yAxisID: 'temperature',
+			backgroundColor: 'transparent',
+			borderColor: chartColors.cyan,
+			pointBackgroundColor: chartColors.cyan,
+			tension: 0.1,
+			fill: false
+		     }, { // Housing
 			yAxisID: 'temperature',
 			backgroundColor: 'transparent',
 			borderColor: chartColors.yel,
 			pointBackgroundColor: chartColors.yel,
 			tension: 0.1,
 			fill: false
+		     }, { // rpid
+			yAxisID: 'pid',
+			backgroundColor: 'transparent',
+			borderColor: chartColors.pink,
+			pointBackgroundColor: chartColors.pink,
+			tension: 0.1,
+			fill: false
+		     }, { // pid
+			yAxisID: 'pid',
+			backgroundColor: 'transparent',
+			borderColor: chartColors.orange,
+			pointBackgroundColor: chartColors.orange,
+			tension: 0.1,
+			fill: false
+		     }, { // psum
+			yAxisID: 'pid',
+			backgroundColor: 'transparent',
+			borderColor: chartColors.green,
+			pointBackgroundColor: chartColors.green,
+			tension: 0.1,
+			fill: false
 		     }, {
 			yAxisID: 'watts',
-			backgroundColor: chartColors.green,
+			backgroundColor: chartColors.t_green,
 			borderColor: 'transparent',
 			fill: true
 		     }, {
@@ -89,6 +131,20 @@ var config_with = {
 					bounds: 'data',
 					beginAtZero: true,
 				}
+			},{
+				id: 'pid',
+				position: 'right',
+				gridLines: {
+					display: false
+				},
+				scaleLabel: {
+					display: true,
+					labelString: 'PID'
+				},
+				ticks: {
+					bounds: 'data',
+					beginAtZero: true,
+				}
 			}]
 		},
 		plugins: {
@@ -100,7 +156,12 @@ var config_with = {
 				datasetLabels: true,
 				indexLabels: true
 			}
-		}
+		},
+        elements: {
+            point: {
+                radius: 1
+            }
+        }
 	}
 };
 

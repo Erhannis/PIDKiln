@@ -58,18 +58,18 @@ String Preferences_parser(const String& var){
  else if(var=="MAX31855_Error_Grace_Count") return String(Prefs[PRF_ERROR_GRACE_COUNT].value.uint8);
 
  else if(var=="PID_Window") return String(Prefs[PRF_PID_WINDOW].value.uint16);
- else if(var=="PID_Kp") return String(Prefs[PRF_PID_KP].value.vfloat);
- else if(var=="PID_Ki") return String(Prefs[PRF_PID_KI].value.vfloat);
- else if(var=="PID_Kd") return String(Prefs[PRF_PID_KD].value.vfloat);
+ else if(var=="PID_Kp") return String(Prefs[PRF_PID_KP].value.vfloat, DECIMAL_PLACES);
+ else if(var=="PID_Ki") return String(Prefs[PRF_PID_KI].value.vfloat, DECIMAL_PLACES);
+ else if(var=="PID_Kd") return String(Prefs[PRF_PID_KD].value.vfloat, DECIMAL_PLACES);
  else if(var=="PID_POE0" && Prefs[PRF_PID_POE].value.uint8==0) return "checked";
  else if(var=="PID_POE1" && Prefs[PRF_PID_POE].value.uint8==1) return "checked";
  else if(var=="PID_Temp_Threshold") return String(Prefs[PRF_PID_TEMP_THRESHOLD].value.int16);
  else if(var=="PID_LIMIT_OUTPUT0" && Prefs[PRF_PID_LIMIT_OUTPUT].value.uint8==0) return "selected";
  else if(var=="PID_LIMIT_OUTPUT1" && Prefs[PRF_PID_LIMIT_OUTPUT].value.uint8==1) return "selected";
- else if(var=="PID_LIMIT_RAMP_MIN_TEMP") return String(Prefs[PRF_PID_LIMIT_RAMP_MIN_TEMP].value.vfloat);
- else if(var=="PID_LIMIT_RAMP_MAX_TEMP") return String(Prefs[PRF_PID_LIMIT_RAMP_MAX_TEMP].value.vfloat);
- else if(var=="PID_LIMIT_MIN_MULT") return String(Prefs[PRF_PID_LIMIT_MIN_MULT].value.vfloat);
- else if(var=="PID_LIMIT_MAX_MULT") return String(Prefs[PRF_PID_LIMIT_MAX_MULT].value.vfloat);
+ else if(var=="PID_LIMIT_RAMP_MIN_TEMP") return String(Prefs[PRF_PID_LIMIT_RAMP_MIN_TEMP].value.vfloat, DECIMAL_PLACES);
+ else if(var=="PID_LIMIT_RAMP_MAX_TEMP") return String(Prefs[PRF_PID_LIMIT_RAMP_MAX_TEMP].value.vfloat, DECIMAL_PLACES);
+ else if(var=="PID_LIMIT_MIN_MULT") return String(Prefs[PRF_PID_LIMIT_MIN_MULT].value.vfloat, DECIMAL_PLACES);
+ else if(var=="PID_LIMIT_MAX_MULT") return String(Prefs[PRF_PID_LIMIT_MAX_MULT].value.vfloat, DECIMAL_PLACES);
  else if(var=="PID_DUTY_CYCLE_PERIOD") return String(Prefs[PRF_PID_DUTY_CYCLE_PERIOD].value.uint16);
  
  else if(var=="LOG_Window") return String(Prefs[PRF_LOG_WINDOW].value.uint16);

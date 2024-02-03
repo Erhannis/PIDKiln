@@ -1,4 +1,4 @@
-#include <PID_v1.h>
+#include "PID_v1.h"
 #include <Syslog.h>
 
 /* 
@@ -14,6 +14,9 @@ const uint16_t Long_Press=400; // long press button takes about 0,9 second
 */
 
 const int MAX_Prog_File_Size=10240;  // maximum file size (bytes) that can be uploaded as program, this limit is also defined in JS script (js/program.js)
+
+// Apparently String(f) only shows two decimal places by default, wrecking some stuff.  *eyeroll*
+#define DECIMAL_PLACES 10
 
 /*
 ** Relays and thermocouple defs. and other addons
@@ -204,6 +207,27 @@ typedef enum {
   PR_ERR_USER_ABORT,      // user aborted
   PR_ERR_end
 } PROGRAM_ERROR_STATE;
+
+String errorEnumToStr(int n) {
+  String s = "unknown";
+  switch (n) {
+    case PR_ERR_FILE_LOAD: { s = "PR_ERR_FILE_LOAD"; } break;
+    case PR_ERR_TOO_LONG_LINE: { s = "PR_ERR_TOO_LONG_LINE"; } break;
+    case PR_ERR_BAD_CHAR: { s = "PR_ERR_BAD_CHAR"; } break;
+    case PR_ERR_TOO_HOT: { s = "PR_ERR_TOO_HOT"; } break;
+    case PR_ERR_TOO_COLD: { s = "PR_ERR_TOO_COLD"; } break;
+    case PR_ERR_TOO_HOT_HOUSING: { s = "PR_ERR_TOO_HOT_HOUSING"; } break;
+    case PR_ERR_MAX31A_NC: { s = "PR_ERR_MAX31A_NC"; } break;
+    case PR_ERR_MAX31A_INT_ERR: { s = "PR_ERR_MAX31A_INT_ERR"; } break;
+    case PR_ERR_MAX31A_KPROBE: { s = "PR_ERR_MAX31A_KPROBE"; } break;
+    case PR_ERR_MAX31B_NC: { s = "PR_ERR_MAX31B_NC"; } break;
+    case PR_ERR_MAX31B_INT_ERR: { s = "PR_ERR_MAX31B_INT_ERR"; } break;
+    case PR_ERR_MAX31B_KPROBE: { s = "PR_ERR_MAX31B_KPROBE"; } break;
+    case PR_ERR_USER_ABORT: { s = "PR_ERR_USER_ABORT"; } break;
+    case PR_ERR_end:{ s = "PR_ERR_end"; } break;
+  }
+  return s;
+}
 
 /*
 ** Filesystem definintions
