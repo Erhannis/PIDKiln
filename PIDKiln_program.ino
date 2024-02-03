@@ -451,7 +451,6 @@ void START_Program(){
   
   Enable_EMR();
 
-  KilnPID.Set
   KilnPID.SetTunings(Prefs[PRF_PID_KP].value.vfloat,Prefs[PRF_PID_KI].value.vfloat,Prefs[PRF_PID_KD].value.vfloat,Prefs[PRF_PID_POE].value.uint8); // set actual PID parameters
   Program_run_start=time(NULL);
   Program_calculate_steps(true);
@@ -543,7 +542,7 @@ uint32_t now;
     }
 
     // Do the PID stuff
-    //CHECK I'm not entirely sure my kiln filaments will survive e.g. a solid 2 seconds of full power.  I was planning on some kind of PWM.
+    //THINK I'm not entirely sure my kiln filaments will survive e.g. a solid 2 seconds of full power.  I was planning on some kind of PWM.  I think this short-cycle thing I have here now should work, though.
     if(Program_run_state==PR_RUNNING || Program_run_state==PR_PAUSED || Program_run_state==PR_THRESHOLD){
       KilnPID.Compute();
 

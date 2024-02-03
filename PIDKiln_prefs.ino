@@ -114,6 +114,7 @@ void Prefs_updated_hook(){
   // We have running program - update PID parameters
   if(Program_run_state==PR_RUNNING || Program_run_state==PR_PAUSED){
     KilnPID.SetTunings(Prefs[PRF_PID_KP].value.vfloat,Prefs[PRF_PID_KI].value.vfloat,Prefs[PRF_PID_KD].value.vfloat); // set actual PID parameters
+    KilnPID.SetSampleTime(Prefs[PRF_PID_WINDOW].value.uint16);
   }
 }
 
@@ -194,7 +195,7 @@ char tmp[30];
         break;
       case PRF_PID_KP:
         Prefs[PRF_PID_KP].type=VFLOAT;
-        Prefs[PRF_PID_KP].value.vfloat=0.378;
+        Prefs[PRF_PID_KP].value.vfloat=0.756;
         break;
       case PRF_PID_KI:
         Prefs[PRF_PID_KI].type=VFLOAT;

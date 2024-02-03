@@ -1,21 +1,23 @@
 fix PID tuning
-permit change PID during program?
 dithering?
 max power?
-additional power limits by temperature
-  power *= (1350-temp)/1350
-    configurable max?  minimum cap?
 chart power
-NANs propagate and persist
+^NANs propagate and persist
   does the PID get infected?
 stop program if too many NANs?
 
 I got some weird D behavior in a sim derived from the pid lib, like, it wasn't damping right. 
 
+Update pidkiln.conf in git with scaled Kx
+
 ^separate pid and element windows
 ^rescale pid to 0-1
 ^PID SetSampleTime
 ^PID scale default params by 0.0378
+^permit change PID during program?
+^additional power limits by temperature
+  power *= (1350-temp)/1350
+    configurable max?  minimum cap?
 
 program finish -> start program, acted like it was running the program (up to 100% heat time), but elements weren't on.  Thought I'd burned out my elements.
 
