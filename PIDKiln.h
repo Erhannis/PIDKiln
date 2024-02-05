@@ -318,7 +318,7 @@ typedef enum { // program menu positions
   PRF_MIN_TEMP,
   PRF_MAX_TEMP,
   PRF_MAX_HOUSING_TEMP,
-  PRF_THERMAL_RUN,
+  PRF_THERMAL_RUN, //THINK I don't think this is used anywhere?
   PRF_ALARM_TIMEOUT,
   PRF_ERROR_GRACE_COUNT,
 

@@ -195,19 +195,19 @@ char tmp[30];
         break;
       case PRF_PID_KP:
         Prefs[PRF_PID_KP].type=VFLOAT;
-        Prefs[PRF_PID_KP].value.vfloat=0.756;
+        Prefs[PRF_PID_KP].value.vfloat=0.02;
         break;
       case PRF_PID_KI:
         Prefs[PRF_PID_KI].type=VFLOAT;
-        Prefs[PRF_PID_KI].value.vfloat=0.00756;
+        Prefs[PRF_PID_KI].value.vfloat=0.0003;
         break;
       case PRF_PID_KD:
         Prefs[PRF_PID_KD].type=VFLOAT;
-        Prefs[PRF_PID_KD].value.vfloat=0.00378;
+        Prefs[PRF_PID_KD].value.vfloat=0.0015;
         break;
       case PRF_PID_POE:   // it's actually boolean - but I did not want to create additional type - if we use  Proportional on Error (true) or Proportional on Measurement (false)
         Prefs[PRF_PID_POE].type=UINT8;
-        Prefs[PRF_PID_POE].value.uint8=0;
+        Prefs[PRF_PID_POE].value.uint8=1;
         break;
       case PRF_PID_TEMP_THRESHOLD:  // allowed difference in temperature between set and current when controller will go in dwell mode
         Prefs[PRF_PID_TEMP_THRESHOLD].type=INT16;
@@ -227,7 +227,7 @@ char tmp[30];
         break;
       case PRF_PID_LIMIT_MIN_MULT:
         Prefs[PRF_PID_LIMIT_MIN_MULT].type=VFLOAT;
-        Prefs[PRF_PID_LIMIT_MIN_MULT].value.vfloat=0.1;
+        Prefs[PRF_PID_LIMIT_MIN_MULT].value.vfloat=0.6;
         break;
       case PRF_PID_LIMIT_MAX_MULT:
         Prefs[PRF_PID_LIMIT_MAX_MULT].type=VFLOAT;
@@ -257,7 +257,7 @@ char tmp[30];
         break;
       case PRF_MAX_HOUSING_TEMP:
         Prefs[PRF_MAX_HOUSING_TEMP].type=UINT16;
-        Prefs[PRF_MAX_HOUSING_TEMP].value.uint16=130;
+        Prefs[PRF_MAX_HOUSING_TEMP].value.uint16=230;
         break;
       case PRF_THERMAL_RUN:
         Prefs[PRF_THERMAL_RUN].type=UINT16;

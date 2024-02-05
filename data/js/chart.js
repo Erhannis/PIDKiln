@@ -159,7 +159,10 @@ var config_with = {
 		},
         elements: {
             point: {
-                radius: 1
+                radius: 0.5
+            },
+            line: {
+                borderWidth: 1
             }
         }
 	}

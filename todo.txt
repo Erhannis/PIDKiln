@@ -1,16 +1,15 @@
-fix PID tuning
 dithering?
 max power?
-^NANs propagate and persist
-  does the PID get infected?
-stop program if too many NANs?
-  should probably be counted a tc fail
 
-I got some weird D behavior in a sim derived from the pid lib, like, it wasn't damping right. 
+I got some weird D behavior in a sim derived from the pid lib, like, it wasn't damping right.
+  Also, I never got PoM working right after updating the scaling
 
-Update pidkiln.conf in git with scaled Kx
 Make decimals consistent
 hard caps
+(tuning: I don't know how it reacts to an abrupt change)
+
+program finish -> start program, acted like it was running the program (up to 100% heat time), but elements weren't on.  Thought I'd burned out my elements.
+I think maybe you need to loadProgram for it to reset properly?
 
 ^separate pid and element windows
 ^rescale pid to 0-1
@@ -21,5 +20,10 @@ hard caps
   power *= (1350-temp)/1350
     configurable max?  minimum cap?
 ^chart power
-
-program finish -> start program, acted like it was running the program (up to 100% heat time), but elements weren't on.  Thought I'd burned out my elements.
+^scale PID graph 0-1
+^Update pidkiln.conf in git with scaled Kx
+^NANs propagate and persist
+  ^does the PID get infected?
+^stop program if too many NANs?
+  ^should probably be counted a tc fail
+^fix PID tuning

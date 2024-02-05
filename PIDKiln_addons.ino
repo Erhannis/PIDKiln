@@ -92,7 +92,7 @@ double kiln_tmp1, kiln_tmp2;
 //     return;
 //   }
 
-  if (fault) {
+  if (fault || isnan(kiln_tmp1)) {
     if (fault & MAX31856_FAULT_CJRANGE) DBG dbgLog(LOG_ERR,"[ADDONS] ThermocoupleA Cold Junction Range Fault");
     if (fault & MAX31856_FAULT_TCRANGE) DBG dbgLog(LOG_ERR,"[ADDONS] ThermocoupleA Thermocouple Range Fault");
     if (fault & MAX31856_FAULT_CJHIGH)  DBG dbgLog(LOG_ERR,"[ADDONS] ThermocoupleA Cold Junction High Fault");
