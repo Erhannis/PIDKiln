@@ -84,6 +84,7 @@ PID KilnPID(&kiln_temp, &pid_out, &set_temp, 0, 0, 0, P_ON_E, DIRECT);
  */
 double limit_pid(double pid_out, double kiln_temp, double min_temp, double max_temp, double min_mult, double max_mult) {
     double mult = (max_temp - kiln_temp) / (max_temp - min_temp);
+    mult = (mult * (max_mult - min_mult)) + min_mult;
     mult = min(max_mult, max(min_mult, mult));
     return pid_out * mult;
 }
