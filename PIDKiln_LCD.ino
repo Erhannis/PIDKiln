@@ -1017,6 +1017,7 @@ void Setup_LCD(void) {
 #else //INCLUDE_LCD
 
 void Restart_ESP(){
+  ESP.restart();
 }
 
 void LCD_display_mainv1(){

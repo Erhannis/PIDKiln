@@ -10,6 +10,8 @@ hard caps
 
 program finish -> start program, acted like it was running the program (up to 100% heat time), but elements weren't on.  Thought I'd burned out my elements.
 I think maybe you need to loadProgram for it to reset properly?
+Don't permit load program while program already running!
+End program vs abort?
 
 ^separate pid and element windows
 ^rescale pid to 0-1

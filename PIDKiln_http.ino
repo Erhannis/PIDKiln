@@ -838,7 +838,16 @@ void SETUP_WebServer(void) {
     [](AsyncWebServerRequest *request, const String& filename, size_t index, uint8_t *data,
                   size_t len, bool final) {handleDoUpdate(request, filename, index, data, len, final);}
   );
-  
+
+  server.on("/reboot.html", HTTP_POST, [](AsyncWebServerRequest *request){
+    if(!_webAuth(request)) return;
+    DBG dbgLog(LOG_ERR,"[HTTP] Failed to allocate memory for screenshot");
+    DBG Serial.flush();
+    delay(1000);
+    Restart_ESP();
+    return;
+  });
+
   // Serve some static data
   server.serveStatic("/icons/", SPIFFS, "/icons/");
   server.serveStatic("/js/", SPIFFS, "/js/");

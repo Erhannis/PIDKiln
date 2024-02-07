@@ -80,6 +80,7 @@ void Update_TemperatureA(){
 double kiln_tmp1, kiln_tmp2;
 
   kiln_tmp1 = ThermocoupleA.readThermocoupleTemperature();
+  DBG dbgLog(LOG_DEBUG,"[ADDONS] ThermocoupleA TC: %f\n",kiln_tmp1);
 
   //CHECK Not sure this checks for connection
   // Check and print any faults
@@ -93,6 +94,7 @@ double kiln_tmp1, kiln_tmp2;
 //   }
 
   if (fault || isnan(kiln_tmp1)) {
+    DBG dbgLog(LOG_ERR,"[ADDONS] ThermocoupleA fault: %d\n",fault);
     if (fault & MAX31856_FAULT_CJRANGE) DBG dbgLog(LOG_ERR,"[ADDONS] ThermocoupleA Cold Junction Range Fault");
     if (fault & MAX31856_FAULT_TCRANGE) DBG dbgLog(LOG_ERR,"[ADDONS] ThermocoupleA Thermocouple Range Fault");
     if (fault & MAX31856_FAULT_CJHIGH)  DBG dbgLog(LOG_ERR,"[ADDONS] ThermocoupleA Cold Junction High Fault");
@@ -101,6 +103,7 @@ double kiln_tmp1, kiln_tmp2;
     if (fault & MAX31856_FAULT_TCLOW)   DBG dbgLog(LOG_ERR,"[ADDONS] ThermocoupleA Thermocouple Low Fault");
     if (fault & MAX31856_FAULT_OVUV)    DBG dbgLog(LOG_ERR,"[ADDONS] ThermocoupleA Over/Under Voltage Fault");
     if (fault & MAX31856_FAULT_OPEN)    DBG dbgLog(LOG_ERR,"[ADDONS] ThermocoupleA Thermocouple Open Fault");
+    if (isnan(kiln_tmp1))               DBG dbgLog(LOG_ERR,"[ADDONS] ThermocoupleA NaN");
 
     if(TempA_errors<Prefs[PRF_ERROR_GRACE_COUNT].value.uint8){
       TempA_errors++;
@@ -118,6 +121,7 @@ double kiln_tmp1, kiln_tmp2;
   }
 
   kiln_tmp2 = ThermocoupleA.readCJTemperature();
+  DBG dbgLog(LOG_DEBUG,"[ADDONS] ThermocoupleA CJ: %f\n",kiln_tmp2);
   if (isnan(int_temp)) {
     int_temp = kiln_tmp2;  
   } else {
@@ -138,6 +142,7 @@ double case_tmp1;
 double case_tmp2;
 
   case_tmp1 = ThermocoupleB.readThermocoupleTemperature();
+  DBG dbgLog(LOG_DEBUG,"[ADDONS] ThermocoupleB TC: %f\n",case_tmp1);
 
   //CHECK Not sure this checks for connection
   // Check and print any faults
@@ -150,7 +155,8 @@ double case_tmp2;
 //     return;
 //   }
 
-  if (fault) {
+  if (fault || isnan(case_tmp1)) {
+    DBG dbgLog(LOG_ERR,"[ADDONS] ThermocoupleB fault: %d\n",fault);
     if (fault & MAX31856_FAULT_CJRANGE) DBG dbgLog(LOG_ERR,"[ADDONS] ThermocoupleB Cold Junction Range Fault");
     if (fault & MAX31856_FAULT_TCRANGE) DBG dbgLog(LOG_ERR,"[ADDONS] ThermocoupleB Thermocouple Range Fault");
     if (fault & MAX31856_FAULT_CJHIGH)  DBG dbgLog(LOG_ERR,"[ADDONS] ThermocoupleB Cold Junction High Fault");
@@ -159,6 +165,7 @@ double case_tmp2;
     if (fault & MAX31856_FAULT_TCLOW)   DBG dbgLog(LOG_ERR,"[ADDONS] ThermocoupleB Thermocouple Low Fault");
     if (fault & MAX31856_FAULT_OVUV)    DBG dbgLog(LOG_ERR,"[ADDONS] ThermocoupleB Over/Under Voltage Fault");
     if (fault & MAX31856_FAULT_OPEN)    DBG dbgLog(LOG_ERR,"[ADDONS] ThermocoupleB Thermocouple Open Fault");
+    if (isnan(case_tmp1))               DBG dbgLog(LOG_ERR,"[ADDONS] ThermocoupleB NaN");
 
     if(TempB_errors<Prefs[PRF_ERROR_GRACE_COUNT].value.uint8){
       TempB_errors++;
@@ -176,6 +183,7 @@ double case_tmp2;
   }
 
   case_tmp2 = ThermocoupleB.readCJTemperature(); 
+  DBG dbgLog(LOG_DEBUG,"[ADDONS] ThermocoupleA CJ: %f\n",case_tmp2);
   if (isnan(int_temp)) {
     int_temp = case_tmp2;
   } else {

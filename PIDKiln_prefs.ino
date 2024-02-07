@@ -203,7 +203,7 @@ char tmp[30];
         break;
       case PRF_PID_KD:
         Prefs[PRF_PID_KD].type=VFLOAT;
-        Prefs[PRF_PID_KD].value.vfloat=0.0015;
+        Prefs[PRF_PID_KD].value.vfloat=0.004;
         break;
       case PRF_PID_POE:   // it's actually boolean - but I did not want to create additional type - if we use  Proportional on Error (true) or Proportional on Measurement (false)
         Prefs[PRF_PID_POE].type=UINT8;
