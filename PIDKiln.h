@@ -28,6 +28,13 @@ const int MAX_Prog_File_Size=10240;  // maximum file size (bytes) that can be up
 #define SSR2_RELAY_PIN 26
 #define SSR3_RELAY_PIN 27
 
+#define ADC_PIN 35
+#ifdef ADC_PIN
+    #define ADC_WEIGHTING 0.05
+    double adc_average = 0;
+    double adc_noise = 0;
+#endif
+
 // MAX31856 variables/defs
 #define MAXSPI1 VSPI
 #define MAXSPI2 HSPI

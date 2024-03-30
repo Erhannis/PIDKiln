@@ -497,9 +497,19 @@ uint32_t now;
 
     now = millis();
  
+#ifdef ADC_PIN
+    int adc_reading = analogRead(ADC_PIN);
+    double adc_diff = abs(adc_reading - adc_average);
+    adc_noise = (adc_noise * (1-ADC_WEIGHTING)) + ((adc_diff*adc_diff)*ADC_WEIGHTING);
+    adc_average = (adc_average * (1-ADC_WEIGHTING)) + (adc_reading*ADC_WEIGHTING);
+#endif
+
     // Interrupts triggered ones per second
     // 
     if (xSemaphoreTake(timerSemaphore, 0) == pdTRUE){
+#ifdef ADC_PIN
+      DBG dbgLog(LOG_INFO,"[PRG] adc_average: %f adc_noise:%f last adc:%d last adc diff:%f\n",adc_average,adc_noise,adc_reading,adc_diff);
+#endif
 
       // Update temperature readout
       Update_TemperatureA();

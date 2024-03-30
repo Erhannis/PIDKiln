@@ -183,7 +183,7 @@ double case_tmp2;
   }
 
   case_tmp2 = ThermocoupleB.readCJTemperature(); 
-  DBG dbgLog(LOG_DEBUG,"[ADDONS] ThermocoupleA CJ: %f\n",case_tmp2);
+  DBG dbgLog(LOG_DEBUG,"[ADDONS] ThermocoupleB CJ: %f\n",case_tmp2);
   if (isnan(int_temp)) {
     int_temp = case_tmp2;
   } else {
@@ -263,6 +263,10 @@ void Setup_Addons(){
 #endif
 #ifdef SSR3_RELAY_PIN
     pinMode(SSR3_RELAY_PIN, OUTPUT);
+#endif
+
+#ifdef ADC_PIN
+  pinMode(ADC_PIN, INPUT);
 #endif
 
   pinMode(ALARM_PIN, OUTPUT);
