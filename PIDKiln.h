@@ -244,7 +244,7 @@ String errorEnumToStr(int n) {
 #define MAX_FILENAME 30   // directory+name can be max 32 on SPIFFS
 #define MAX_PROGNAME 20   //  - cos we already have /programs/ directory...
 
-const char allowed_chars_in_filename[]="abcdefghijklmnoprstuwxyzABCDEFGHIJKLMNOPRSTUWXYZ1234567890._";
+const char allowed_chars_in_filename[]="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890._";
 
 struct DIRECTORY {
   char filename[MAX_PROGNAME+1];
